@@ -1,0 +1,44 @@
+doctype html 
+html 
+head 
+    meta(charset="utf-8")
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel="stylesheet", href="css/style.css")
+    title AutoSwiper
+body 
+    h1 AutoSwiper
+    main 
+      nav.navbar.navbar-inverse
+    .container-fluid
+    .navbar-header
+      a.navbar-brand(href='/') My Website!
+    ul.nav.navbar-nav
+      li.active
+        a.menu(href='/index') Home
+
+        
+    ul.nav.navbar-nav.navbar-right
+      li
+        a(href='/user/me')
+          | Je account:
+          | emailhierzo
+
+.container
+
+  h1.display-1 homepage
+
+  p.
+    Welkom, Op deze pagina kan je op een snelle manier auto's bezichtigen en makkelijk een bod uitbrengen!  test
+a(href='/get-data')
+div
+  
+      div.aanbodBox
+       h1 Bekijk ons aanbod:
+       ul
+            each auto in autos
+                 li #{auto.name} - #{auto.kilometerstand}- #{auto.vraagprijs}
+                 form(action="/autos/update" method="POST")
+                        input(type="hidden" name="id" value=auto._id)
+                        | Merk: #{auto.merk} - Model: #{auto.model} - Vraagprijs: 
+                        input(type="text" name="vraagprijs" value=auto.vraagprijs)
+                        input(type="submit" value="Update_Vraagprijs")
