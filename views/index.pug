@@ -1,44 +1,47 @@
-doctype html 
-html 
-head 
+doctype html
+html
+  head
     meta(charset="utf-8")
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel="stylesheet", href="css/style.css")
+    link(rel="stylesheet", href="/css/style.css")
+    script(src="/index.js") 
     title AutoSwiper
-body 
-    h1 AutoSwiper
-    main 
-      nav.navbar.navbar-inverse
-    .container-fluid
-    .navbar-header
-      a.navbar-brand(href='/') My Website!
-    ul.nav.navbar-nav
-      li.active
-        a.menu(href='/index') Home
+  body 
+    header
+      nav.navbar
+        a.navbar-brand(href='/') AutoSwiper
+        ul.nav
+          li.active
+            a.menu(href='/index') Home
+          li
+            a(href='/user/me') Je account: emailhierzo
 
-        
-    ul.nav.navbar-nav.navbar-right
-      li
-        a(href='/user/me')
-          | Je account:
-          | emailhierzo
+    .container
+      h1 Welkom bij AutoSwiper
+      p Op deze pagina kun je snel auto's bezichtigen en eenvoudig een bod uitbrengen!
 
-.container
-
-  h1.display-1 homepage
-
-  p.
-    Welkom, Op deze pagina kan je op een snelle manier auto's bezichtigen en makkelijk een bod uitbrengen!  test
-a(href='/get-data')
-div
-  
-      div.aanbodBox
-       h1 Bekijk ons aanbod:
-       ul
-            each auto in autos
-                 li #{auto.name} - #{auto.kilometerstand}- #{auto.vraagprijs}
-                 form(action="/autos/update" method="POST")
-                        input(type="hidden" name="id" value=auto._id)
-                        | Merk: #{auto.merk} - Model: #{auto.model} - Vraagprijs: 
-                        input(type="text" name="vraagprijs" value=auto.vraagprijs)
-                        input(type="submit" value="Update_Vraagprijs")
+      .aanbodBox
+        h2 Bekijk het aanbod uit onze database:
+        ul
+          each auto in autos
+            li #{auto.name} - #{auto.kilometerstand} - €#{auto.vraagprijs}
+            form(action="/update-auto" method="POST")
+              input(type="hidden" name="id" value=auto._id)
+              div.content
+                span Merk: #{auto.merk} - Model: #{auto.model} - Vraagprijs: 
+                input(type="text" name="vraagprijs" value=auto.vraagprijs)
+                input(type="submit" value="Update Auto")
+                
+      .aanbodBox
+        h2 bekijk hier wat modellen bij jouw in de buurt:
+        ul
+          div
+            each auto in autoData
+              div
+                #{auto.imageurl}
+                li Naam: #{auto.name}
+                li Bouwjaar: #{auto.bouwjaar}
+                li Kilometerstand: #{auto.kilometerstand}
+                li Vraagprijs: #{auto.vraagprijs}
+                li Bod: #{auto.bod}
+                br
