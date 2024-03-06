@@ -1,3 +1,60 @@
-h1{
-    color: green;
-}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  .navbar {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+  }
+  
+  .navbar-brand, .nav a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  .nav {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+  }
+  
+  .nav li {
+    margin-right: 10px;
+  }
+  
+  .container {
+    margin: 20px;
+  }
+  
+  .aanbodTabel {
+    width: 100%;
+    border-collapse: separate; /* Zorgt ervoor dat border-spacing werkt */
+    border-spacing: 0 15px; /* 0px horizontale ruimte, 15px verticale ruimte tussen rijen */
+  }
+  
+  .aanbodTabel th, .aanbodTabel td {
+    text-align: left;
+    padding: 10px; /* Voegt ruimte binnenin elke cel toe */
+    background-color: #f9f9f9; /* Lichtgrijze achtergrond voor elke cel */
+    border-radius: 5px; /* Maakt de hoeken van cellen rond */
+  }
+  
+  input[type="text"], input[type="submit"] {
+    padding: 5px;
+    margin-top: 5px; /* Voegt ruimte toe boven de invoervelden */
+  }
+  
+  input[type="submit"] {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
