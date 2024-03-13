@@ -4,8 +4,11 @@ html
     meta(charset="utf-8")
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel="stylesheet", href="/css/style.css")
+    script(async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBymYYYiITxSjF_XsbdjLEbnizsuxXMGOg&callback=console.debug&libraries=maps,marker&v=beta")
     script(src="/index.js") 
+    script(src="/autos.js")
     title AutoSwiper
+    link(rel="stylesheet" href="./style.css")
   body 
     header
       nav.navbar
@@ -19,6 +22,8 @@ html
     .container
       h1 Welkom bij AutoSwiper
       p Op deze pagina kun je snel auto's bezichtigen en eenvoudig een bod uitbrengen!
+
+
 
       .aanbodBox
         h2 Bekijk het aanbod uit onze database:
@@ -45,3 +50,10 @@ html
                 li Vraagprijs: #{auto.vraagprijs}
                 li Bod: #{auto.bod}
                 br
+      p Alles hieronder komt uit de API:
+      li#autos-list
+        h2 Bezoek onze showroom!
+                    // De callback parameter is verplicht, dus we gebruiken console.debug als een noop
+    script(async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBymYYYiITxSjF_XsbdjLEbnizsuxXMGOg&callback=console.debug&libraries=maps,marker&v=beta")
+    gmp-map(center="52.367488861083984,4.902733325958252" zoom="14" map-id="DEMO_MAP_ID")
+      gmp-advanced-marker(position="52.367488861083984,4.902733325958252" title="My location")

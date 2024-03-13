@@ -45,6 +45,13 @@ const autoData = [
   // Voeg meer autos toe zoals nodig
 ];
 
+app.get('/api/autos', async (req, res) => {
+  const collection = await connect();
+  const autos = await collection.find().toArray();
+  res.json(autos);
+});
+
+
 // Route: Toon alle auto's op de indexpagina
 app.get('/', async (req, res) => {
     const collection = await connect();
