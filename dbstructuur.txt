@@ -1,0 +1,10 @@
+{
+  "_id": {
+    "$oid": "65df0b8831dd7777cd9f759a"
+  },
+  "name": "Audi S3",
+  "bouwjaar": "2005",
+  "kilometerstand": "60000",
+  "vraagprijs": "5555562",
+  "bod": "$5000"
+}

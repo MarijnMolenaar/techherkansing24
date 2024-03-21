@@ -12,48 +12,62 @@ html
   body 
     header
       nav.navbar
-        a.navbar-brand(href='/') AutoSwiper
+        h1.navbar-brand(href='/') AutoSwiper
         ul.nav
           li.active
-            a.menu(href='/index') Home
-          li
-            a(href='/user/me') Je account: emailhierzo
-
+            a.menu(href='/index') Home -
+            a.menu(href='/Showroom') - Showroom
+    img(src="img/headerimage.png", alt="Headerfoto van porsche")
     .container
       h1 Welkom bij AutoSwiper
-      p Op deze pagina kun je snel auto's bezichtigen en eenvoudig een bod uitbrengen!
+      p Waar de liefde voor auto's en het gemak van swipen samenkomen. Ben je klaar om je volgende vierwieler te ontmoeten? Of je nu een snelheidsduivel of een zondagsrijder bent, wij hebben iets voor jou. Laten we samen gas geven op de weg naar jouw droomauto.
+      p Bekijk ons aanbod:
+style.
+  .tabelContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    font-weight: bold;
+  }
+  table {
+    border-collapse: collapse;
+    width: 80%; /* Aanpasbaar naar wens */
+    margin: auto;
+  }
+  th, td {
+    border: 3px solid #007bff;
+    text-align: left;
+    padding: 8px;
+    background-color: white;
+  }
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  tr:last-child td {
+    padding: 4px 8px; /* Kleinere padding voor de laatste rij om het smaller te laten lijken */
+  }
 
-
-
-      .aanbodBox
-        h2 Bekijk het aanbod uit onze database:
-        ul
-          each auto in autos
-            li #{auto.name} - #{auto.kilometerstand} - €#{auto.vraagprijs}
-            form(action="/update-auto" method="POST")
-              input(type="hidden" name="id" value=auto._id)
-              div.content
-                span Merk: #{auto.merk} - Model: #{auto.model} - Vraagprijs: 
-                input(type="text" name="vraagprijs" value=auto.vraagprijs)
-                input(type="submit" value="Update Auto")
-                
-      .aanbodBox
-        h2 bekijk hier wat modellen bij jouw in de buurt:
-        ul
-          div
-            each auto in autoData
-              div
-                #{auto.imageurl}
-                li Naam: #{auto.name}
-                li Bouwjaar: #{auto.bouwjaar}
-                li Kilometerstand: #{auto.kilometerstand}
-                li Vraagprijs: #{auto.vraagprijs}
-                li Bod: #{auto.bod}
-                br
-      p Alles hieronder komt uit de API:
-      li#autos-list
-        h2 Bezoek onze showroom!
-                    // De callback parameter is verplicht, dus we gebruiken console.debug als een noop
-    script(async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBymYYYiITxSjF_XsbdjLEbnizsuxXMGOg&callback=console.debug&libraries=maps,marker&v=beta")
-    gmp-map(center="52.367488861083984,4.902733325958252" zoom="14" map-id="DEMO_MAP_ID")
-      gmp-advanced-marker(position="52.367488861083984,4.902733325958252" title="My location")
+.aanbodBox
+  .tabelContainer
+    table
+      thead
+        tr
+          th Naam
+          th Kilometerstand
+          th Vraagprijs
+          th Doe een bod
+      tbody
+        each auto in autos
+          tr
+            td #{auto.name}
+            td #{auto.kilometerstand}
+            td €#{auto.vraagprijs}
+            td
+              form(action="/update-auto" id="updateAutoForm" method="POST")
+                input(type="hidden" name="id" value=auto._id)
+                div.content
+                  span Hoogste bod: €
+                  input(type="text" name="vraagprijs" value=auto.vraagprijs pattern="[0-9]+" title="Voer alleen cijfers in.")
+                  input(type="submit" class="submitknop" value="Plaats je bod")
+                  
