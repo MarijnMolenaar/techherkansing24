@@ -1,0 +1,104 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel="stylesheet", href="/css/style.css")
+    script(async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBymYYYiITxSjF_XsbdjLEbnizsuxXMGOg&callback=console.debug&libraries=maps,marker&v=beta")
+    script(src="/index.js") 
+    title AutoSwiper
+    link(rel="stylesheet" href="style.css")
+    link(rel="icon", type="image/x-icon", href="/img/favicon.jpg")
+  body 
+    header
+      nav.navbar
+        h1.navbar-brand(href='/') AutoSwiper
+        ul.nav
+          li.active
+            a.menu(href='/') Home -
+            a.menu(href='/Showroom') - Showroom -
+            a.menu(href='/overons') - Over Ons
+    .container
+      h1 Over ons
+      p Maak je liever eerst een testritje? Bezoek onze showroom!
+      p Meld je aan voor onze maandelijkse nieuwsbrief:
+        form
+          input#mail(type='email' name='mail' required minlength="8")
+          span.error(aria-live='polite')
+          button(type='submit') Verstuur  
+          span.successMessage(aria-live="polite" style="display:none;") Bedankt! Je kunt de nieuwsbrief in de eerste week van de maand verwachten
+    script.
+      // Bron: https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation#the_constraint_validation_api
+      // There are many ways to pick a DOM node; here we get the form itself and the email
+      // invoerveld, evenals het span-element waarin we het foutbericht zullen plaatsen.
+      const form  = document.getElementsByTagName('form')[0];
+      const email = document.getElementById('mail');
+      const emailError = document.querySelector('#mail + span.error');
+
+      email.addEventListener('input', function (event) {
+        // Elke keer als de gebruiker iets typt, controleren we of de
+        // formulier velden geldig zijn.
+
+        if (email.validity.valid) {
+          // In het geval er een foutmelding zichtbaar is, maar het veld
+          // geldig is, verwijderen we de foutmelding.
+          emailError.innerHTML = ''; // Reset de inhoud van het bericht
+          emailError.className = 'error'; // Reset the visuals van het bericht
+        } else {
+          // Toon de correcte error
+          showError();
+        }
+      });
+
+      form.addEventListener('submit', function (event) {
+        // Als de validatie goed is wordt het form gesubmit
+
+        if(!email.validity.valid) {
+          // Error bericht wordt getoond
+          showError();
+          // Voorkomt het form submit als het fout is
+          event.preventDefault();
+        }
+      });
+
+      form.addEventListener("submit", function (event) {
+        if (!email.validity.valid) {
+          // Als het formulier niet geldig is, toon de fout en voorkom de inzending
+          showError();
+          event.preventDefault();
+        } else {
+          // Toon het succesbericht
+          const successMessage = document.querySelector('.successMessage');
+          successMessage.style.display = 'block';
+          event.preventDefault(); // Verwijder deze regel als je het formulier daadwerkelijk wilt indienen
+        }
+      });
+
+      function showError() {
+        if(email.validity.valueMissing) {
+          // IAls het veld leeg is wordt dit getoond
+          emailError.textContent = 'Je moet een email adres invoeren';
+        } else if(email.validity.typeMismatch) {
+          // Als het geen email is wordt dit getoond
+          emailError.textContent = 'Vul een email adres in';
+        } else if(email.validity.tooShort) {
+          // Als het te kort is wordt dit getoond
+          emailError.textContent = `Het email adres moet teminste ${ email.minLength } karakters lang zijn; Je hebt  ${ email.value.length }karakters ingevoerd.`;
+        }
+        emailError.className = 'error active';
+      }    
+
+    iframe(
+        width="700",
+        height="450",
+        size="mid",
+        label="orange",
+        style="border:2",
+        loading="lazy",
+        allowfullscreen,
+        referrerpolicy="no-referrer-when-downgrade",
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBymYYYiITxSjF_XsbdjLEbnizsuxXMGOg&q=, Isolatorweg 16,Sloterdijk,Amsterdam"
+      )  
+    
+Footer 
+  p Gemaakt door Marijn

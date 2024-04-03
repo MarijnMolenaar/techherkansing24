@@ -6,48 +6,24 @@ html
     link(rel="stylesheet", href="/css/style.css")
     script(async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBymYYYiITxSjF_XsbdjLEbnizsuxXMGOg&callback=console.debug&libraries=maps,marker&v=beta")
     script(src="/index.js") 
-    script(src="/autos.js")
     title AutoSwiper
     link(rel="stylesheet" href="./style.css")
+    link(rel="icon", type="image/x-icon", href="/img/favicon.jpg")
+
   body 
     header
       nav.navbar
         h1.navbar-brand(href='/') AutoSwiper
         ul.nav
           li.active
-            a.menu(href='/index') Home -
-            a.menu(href='/Showroom') - Showroom
+            a.menu(href='/') Home -
+            a.menu(href='/Showroom') - Showroom -
+            a.menu(href='/overons') - Over Ons
     img(src="img/headerimage.png", alt="Headerfoto van porsche")
     .container
       h1 Welkom bij AutoSwiper
       p Waar de liefde voor auto's en het gemak van swipen samenkomen. Ben je klaar om je volgende vierwieler te ontmoeten? Of je nu een snelheidsduivel of een zondagsrijder bent, wij hebben iets voor jou. Laten we samen gas geven op de weg naar jouw droomauto.
-      p Bekijk ons aanbod:
-style.
-  .tabelContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50vh;
-    font-weight: bold;
-  }
-  table {
-    border-collapse: collapse;
-    width: 80%; /* Aanpasbaar naar wens */
-    margin: auto;
-  }
-  th, td {
-    border: 3px solid #007bff;
-    text-align: left;
-    padding: 8px;
-    background-color: white;
-  }
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  tr:last-child td {
-    padding: 4px 8px; /* Kleinere padding voor de laatste rij om het smaller te laten lijken */
-  }
-
+      p Bekijk ons aanbod hieronder. Je kunt een bod plaatsen op de onderstaande modellen. Wil je de autos eerst liever zien? Dan kan je onze showroom bezoeken!
 .aanbodBox
   .tabelContainer
     table
@@ -62,12 +38,11 @@ style.
           tr
             td #{auto.name}
             td #{auto.kilometerstand}
-            td €#{auto.vraagprijs}
+            td €#{auto.bod}
             td
-              form(action="/update-auto" id="updateAutoForm" method="POST")
+              form(novalidate action="/update-auto" id="updateAutoForm" method="POST")
                 input(type="hidden" name="id" value=auto._id)
                 div.content
                   span Hoogste bod: €
-                  input(type="text" name="vraagprijs" value=auto.vraagprijs pattern="[0-9]+" title="Voer alleen cijfers in.")
+                  input(type="number" class="nieuwBod" id="nieuwBodVeld" name="nieuwBod" min=auto.bod value=auto.bod + 1 step="1" required title="Voer een waarde in hoger dan het huidige bod.")
                   input(type="submit" class="submitknop" value="Plaats je bod")
-                  

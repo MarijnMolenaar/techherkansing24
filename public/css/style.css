@@ -52,6 +52,33 @@ h1 {
     margin-top: 5px; /* Voegt ruimte toe boven de invoervelden */
   }
   
+
+  .tabelContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    font-weight: bold;
+  }
+  table {
+    border-collapse: collapse;
+    width: 80%; /* Aanpasbaar naar wens */
+    margin: auto;
+  }
+  th, td {
+    border: 3px solid #007bff;
+    text-align: left;
+    padding: 8px;
+    background-color: white;
+  }
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  tr:last-child td {
+    padding: 4px 8px; /* Kleinere padding voor de laatste rij om het smaller te laten lijken */
+  }
+
+  
   input[type="submit"] {
     background-color: #007bff;
     color: #ffffff;
@@ -89,6 +116,7 @@ h1 {
     box-shadow: 2px 2px;
     margin-left: 20px;
     margin-bottom: 20px;
+    width: 1000px;
   }
   
   input[type="submit"]:hover {
@@ -99,6 +127,7 @@ h1 {
  * element that contains the map. */
 gmp-map {
     height: 60%;
+    
   }
   
   /* Optional: Makes the sample page fill the window. */
@@ -116,3 +145,61 @@ gmp-map {
     padding: 10px 0; /* Voegt padding toe aan de boven- en onderkant */
   }
   
+
+
+  /* validatie
+
+/* This is our style for the invalid fields */
+input:invalid {
+  border-color: #900;
+  background-color: #fdd;
+}
+
+input:focus:invalid {
+  outline: none;
+}
+
+/* This is the style of our error messages */
+
+p * {
+  display: block;
+}
+
+input[type="email"] {
+  appearance: none;
+
+  border: 1px solid #333;
+  margin: 0;
+
+  font-family: inherit;
+  font-size: 90%;
+
+  box-sizing: border-box;
+}
+
+/* This is our style for the invalid fields */
+input:invalid {
+  border-color: #900;
+  background-color: #fdd;
+}
+
+input:focus:invalid {
+  outline: none;
+}
+
+/* This is the style of our error messages */
+.error {
+  width: 100%;
+  padding: 0;
+
+  font-size: 80%;
+  color: white;
+  background-color: #900;
+  border-radius: 0 0 5px 5px;
+
+  box-sizing: border-box;
+}
+
+.error.active {
+  padding: 0.3em;
+}

@@ -6,9 +6,9 @@ html
     link(rel="stylesheet", href="/css/style.css")
     script(async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBymYYYiITxSjF_XsbdjLEbnizsuxXMGOg&callback=console.debug&libraries=maps,marker&v=beta")
     script(src="/index.js") 
-    script(src="/autos.js")
     title AutoSwiper
-    link(rel="stylesheet" href=".style.css")
+    link(rel="stylesheet" href="style.css")
+    link(rel="icon", type="image/x-icon", href="/img/favicon.jpg")
   body 
     header
       nav.navbar
@@ -16,23 +16,34 @@ html
         ul.nav
           li.active
             a.menu(href='/') Home -
-            a.menu(href='/Showroom') - Showroom
-    
+            a.menu(href='/Showroom') - Showroom -
+            a.menu(href='/overons') - Over Ons
     .container
       h1 Showroom
-      p Maak je liever eerst een testritje? Bezoek onze showroom!
-        h2 Bezoek onze showroom!
-                    // De callback parameter is verplicht, dus we gebruiken console.debug als een noop
-    iframe(
-  width="700",
-  height="450",
-  size="mid",
-  label="orange",
-  style="border:2",
-  loading="lazy",
-  allowfullscreen,
-  referrerpolicy="no-referrer-when-downgrade",
-  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBymYYYiITxSjF_XsbdjLEbnizsuxXMGOg&q=, Isolatorweg 16,Sloterdijk,Amsterdam"
-)
-  footer
-          p Gemaakt door Marijn Molenaar
+      p Bekijk ons aanbod van occasions:
+        
+    script.
+      // Luister naar het 'DOMContentLoaded' event. Dit zorgt ervoor dat de code pas uitgevoerd wordt
+      document.addEventListener('DOMContentLoaded', function() {
+      // Haal afbeeldingen op van Unsplash via een GET request. We zoeken naar afbeeldingen met het thema 'cars'.
+        fetch('https://api.unsplash.com/search/photos?query=cars&client_id=U71jaGVFzgwZ5XnABSwtTltQjUNdB8jqimCsbsZB0-E')
+      // Zet het antwoord om in JSON-formaat. Dit maakt het makkelijker om met de data te werken.
+          .then(function(response) { return response.json(); })
+      // 'data.results' bevat onze gezochte afbeeldingen. We slaan deze op in 'images'.
+          .then(function(data) {
+     // 'data.results' bevat onze gezochte afbeeldingen. We slaan deze op in 'images'.
+            const images = data.results;
+            const container = document.querySelector('.container');
+            images.forEach(function(image) {
+              const img = document.createElement('img');
+              img.src = image.urls.small;
+              container.appendChild(img);
+            });
+          })
+          // Als er iets misgaat bij het ophalen van de data, log dan de fout naar de console.
+          .catch(function(error) {
+            console.error('Fout bij het ophalen van afbeeldingen van Unsplash:', error);
+          });
+      });
+Footer 
+  p Gemaakt door Marijn

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/style.css">
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBymYYYiITxSjF_XsbdjLEbnizsuxXMGOg&amp;callback=console.debug&amp;libraries=maps,marker&amp;v=beta"></script>
+    <script src="/index.js"> </script>
+    <script src="/autos.js"></script>
+    <title>AutoSwiper</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body> 
+    <header>
+      <nav class="navbar">
+        <h1 class="navbar-brand" href="/">AutoSwiper</h1>
+        <ul class="nav">
+          <li class="active"><a class="menu" href="/">Home -</a><a class="menu" href="/Showroom">- Showroom</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="container">
+      <h1>Showroom</h1>
+      <p>Maak je liever eerst een testritje? Bezoek onze showroom!</p>
+      <p>Meld je aan voor onze maandelijkse nieuwsbrief:
+        <form>
+          <input id="mail" type="email" name="mail" required minlength="8"><span class="error" aria-live="polite"></span>
+          <button type="submit">Verstuur  </button><span class="successMessage" aria-live="polite" style="display:none;">Bedankt! Je kunt de nieuwsbrief in de eerste week van de maand verwachten</span>
+        </form>
+      </p>
+      <iframe width="700" height="450" size="mid" label="orange" style="border:2" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBymYYYiITxSjF_XsbdjLEbnizsuxXMGOg&amp;q=, Isolatorweg 16,Sloterdijk,Amsterdam"></iframe>
+    </div>
+    <script>
+       // Bron: https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation#the_constraint_validation_api
+       // There are many ways to pick a DOM node; here we get the form itself and the email
+       // invoerveld, evenals het span-element waarin we het foutbericht zullen plaatsen.
+       const form  = document.getElementsByTagName('form')[0];
+       const email = document.getElementById('mail');
+       const emailError = document.querySelector('#mail + span.error');
+      
+       email.addEventListener('input', function (event) {
+         // Elke keer als de gebruiker iets typt, controleren we of de
+         // formulier velden geldig zijn.
+      
+         if (email.validity.valid) {
+           // In het geval er een foutmelding zichtbaar is, maar het veld
+           // geldig is, verwijderen we de foutmelding.
+           emailError.innerHTML = ''; // Reset de inhoud van het bericht
+           emailError.className = 'error'; // Reset the visuals van het bericht
+         } else {
+           // Toon de correcte error
+           showError();
+         }
+       });
+      
+       form.addEventListener('submit', function (event) {
+         // Als de validatie goed is wordt het form gesubmit
+      
+         if(!email.validity.valid) {
+           // Error bericht wordt getoond
+           showError();
+           // Voorkomt het form submit als het fout is
+           event.preventDefault();
+         }
+       });
+      
+       form.addEventListener("submit", function (event) {
+         if (!email.validity.valid) {
+           // Als het formulier niet geldig is, toon de fout en voorkom de inzending
+           showError();
+           event.preventDefault();
+         } else {
+           // Toon het succesbericht
+           const successMessage = document.querySelector('.successMessage');
+           successMessage.style.display = 'block';
+           event.preventDefault(); // Verwijder deze regel als je het formulier daadwerkelijk wilt indienen
+         }
+       });
+      
+       function showError() {
+         if(email.validity.valueMissing) {
+           // IAls het veld leeg is wordt dit getoond
+           emailError.textContent = 'Je moet een email adres invoeren';
+         } else if(email.validity.typeMismatch) {
+           // Als het geen email is wordt dit getoond
+           emailError.textContent = 'Vul een email adres in';
+         } else if(email.validity.tooShort) {
+           // Als het te kort is wordt dit getoond
+           emailError.textContent = `Het email adres moet teminste ${ email.minLength } karakters lang zijn; Je hebt  ${ email.value.length }karakters ingevoerd.`;
+         }
+         emailError.className = 'error active';
+       }
+       
+       // Luister naar het 'DOMContentLoaded' event. Dit zorgt ervoor dat de code pas uitgevoerd wordt
+       document.addEventListener('DOMContentLoaded', function() {
+       // Haal afbeeldingen op van Unsplash via een GET request. We zoeken naar afbeeldingen met het thema 'cars'.
+         fetch('https://api.unsplash.com/search/photos?query=cars&client_id=U71jaGVFzgwZ5XnABSwtTltQjUNdB8jqimCsbsZB0-E')
+       // Zet het antwoord om in JSON-formaat. Dit maakt het makkelijker om met de data te werken.
+           .then(function(response) { return response.json(); })
+       // 'data.results' bevat onze gezochte afbeeldingen. We slaan deze op in 'images'.
+           .then(function(data) {
+      // 'data.results' bevat onze gezochte afbeeldingen. We slaan deze op in 'images'.
+             const images = data.results;
+             const container = document.querySelector('.container');
+             images.forEach(function(image) {
+               const img = document.createElement('img');
+               img.src = image.urls.small;
+               container.appendChild(img);
+             });
+           })
+           // Als er iets misgaat bij het ophalen van de data, log dan de fout naar de console.
+           .catch(function(error) {
+             console.error('Fout bij het ophalen van afbeeldingen van Unsplash:', error);
+           });
+       });
+    </script>
+  </body>
+</html>
+<Footer> 
+  <p>Gemaakt door Marijn</p>
+</Footer>
